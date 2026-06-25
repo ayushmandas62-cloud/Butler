@@ -26,4 +26,44 @@ fi
 echo
 success "Environment check completed."
 echo
-info "Desktop startup is not implemented yet."
+info "Starting D-Bus..."
+
+if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+    eval "$(dbus-launch --sh-syntax)"
+    success "D-Bus started"
+else
+    success "D-Bus already running"
+fi
+
+echo
+
+info "Checking X11 server..."
+
+if pgrep -f termux.x11 >/dev/null; then
+    success "Termux:X11 is running"
+else
+    die "Termux:X11 is not running. Open the Termux:X11 app first."
+fi
+
+echo
+
+info "Configuring display..."
+
+export DISPLAY=:0
+
+success "DISPLAY set to $DISPLAY"
+
+echo
+
+info "Launching test application..."
+
+if command -v xfce4-terminal >/dev/null 2>&1; then
+    xfce4-terminal &
+    success "xfce4-terminal launched"
+else
+    die "xfce4-terminal is not installed"
+fi
+
+echo
+
+success "Butler startup completed."
