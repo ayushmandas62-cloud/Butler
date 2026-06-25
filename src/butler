@@ -1,0 +1,38 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+source "$(dirname "$0")/common.sh"
+
+case "$1" in
+    install)
+        info "Install module coming soon."
+        ;;
+    doctor)
+        info "Doctor module coming soon."
+        ;;
+    start)
+        info "Starting Butler..."
+        ;;
+    stop)
+        info "Stopping Butler..."
+        ;;
+    restart)
+        info "Restarting Butler..."
+        ;;
+    ""|help|--help|-h)
+        echo "Butler Desktop $BUTLER_VERSION"
+        echo ""
+        echo "Usage:"
+        echo "  butler <command>"
+        echo ""
+        echo "Commands:"
+        echo "  install"
+        echo "  doctor"
+        echo "  start"
+        echo "  stop"
+        echo "  restart"
+        ;;
+    *)
+        error "Unknown command: $1"
+        exit 1
+        ;;
+esac
