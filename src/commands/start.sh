@@ -3,6 +3,7 @@
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SCRIPT_DIR/../lib/common.sh"
 source "$SCRIPT_DIR/../lib/logger.sh"
+source "$SCRIPT_DIR/../lib/storage.sh"
 
 launch_desktop() {
     info "Launching XFCE Desktop..."
@@ -28,14 +29,7 @@ echo
 info "Starting Butler..."
 log "Butler startup initiated."
 
-echo
-info "Checking storage..."
-
-if [ -d "$HOME/storage/shared" ]; then
-    success "Storage available"
-else
-    die "Storage permission missing. Run: termux-setup-storage"
-fi
+check_storage
 
 echo
 info "Checking Termux:X11..."
