@@ -1,24 +1,10 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
+LOG_DIR="$HOME/butler-desktop/logs"
+LOG_FILE="$LOG_DIR/butler.log"
+
+mkdir -p "$LOG_DIR"
+
 log() {
-    level="$1"
-    shift
-
-    printf "[%s] %s\n" "$level" "$*"
-}
-
-info() {
-    log INFO "$@"
-}
-
-warn() {
-    log WARN "$@"
-}
-
-error() {
-    log FAIL "$@"
-}
-
-success() {
-    log OK "$@"
+    printf "[%s] %s\n" "$(date '+%F %T')" "$1" >> "$LOG_FILE"
 }

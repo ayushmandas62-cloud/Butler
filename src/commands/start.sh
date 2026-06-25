@@ -2,8 +2,33 @@
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SCRIPT_DIR/../lib/common.sh"
+source "$SCRIPT_DIR/../lib/logger.sh"
 
+launch_desktop() {
+    info "Launching XFCE Desktop..."
+
+    dbus-launch --exit-with-session startxfce4
+
+    status=$?
+
+    if [ "$status" -eq 0 ]; then
+        success "XFCE session ended normally."
+    else
+        error "XFCE exited with code $status"
+    fi
+}
+start_x11() {
+    info "Starting X11 bridge..."
+
+    termux-x11 :0 >/dev/null 2>&1 &
+    sleep 2
+
+    success "X11 bridge started"
+}
+
+echo
 info "Starting Butler..."
+log "Butler startup initiated."
 
 echo
 info "Checking storage..."
