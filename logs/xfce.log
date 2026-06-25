@@ -21,3 +21,27 @@ Xlib:  extension "DPMS" missing on display ":0.0".
 ** (xfce4-power-manager:28377): WARNING **: 18:57:15.798: Unable to get the interface, net.hadess.PowerProfiles : Could not connect: No such file or directory
 
 (xfce4-power-manager:28377): xfce4-power-manager-WARNING **: 18:57:40.815: Unable to get the interface, org.freedesktop.UPower.KbdBacklight
+
+(xfce4-power-manager:28377): libxfce4ui-WARNING **: 22:10:44.786: ICE I/O Error
+
+(xfwm4:28321): libxfce4ui-WARNING **: 22:10:44.785: ICE I/O Error
+
+(xfce4-power-manager:28377): libxfce4ui-WARNING **: 22:10:44.788: Disconnected from session manager.
+
+(xfwm4:28321): libxfce4ui-WARNING **: 22:10:44.788: Disconnected from session manager.
+
+(xfdesktop:28369): libxfce4ui-WARNING **: 22:10:44.786: ICE I/O Error
+
+(xfsettingsd:28341): libxfce4ui-WARNING **: 22:10:44.787: ICE I/O Error
+
+(xfdesktop:28369): libxfce4ui-WARNING **: 22:10:44.788: Disconnected from session manager.
+
+(xfsettingsd:28341): libxfce4ui-WARNING **: 22:10:44.788: Disconnected from session manager.
+
+(xfce4-panel:28352): libxfce4ui-WARNING **: 22:10:44.786: ICE I/O Error
+
+(xfce4-panel:28352): libxfce4ui-WARNING **: 22:10:44.789: Disconnected from session manager.
+
+** (xfdesktop:28369): WARNING **: 22:10:44.889: Failed to get system bus: Could not connect: No such file or directory
+
+(xfsettingsd:28341): xfconf-WARNING **: 22:10:44.913: Failed to set property "keyboards::/Default/Numlock": GDBus.Error:org.freedesktop.DBus.Error.Spawn.ChildExited: Process org.xfce.Xfconf exited with status 1
