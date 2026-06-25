@@ -7,12 +7,15 @@ source "$SCRIPT_DIR/../lib/storage.sh"
 source "$SCRIPT_DIR/../lib/dbus.sh"
 source "$SCRIPT_DIR/../lib/x11.sh"
 source "$SCRIPT_DIR/../lib/desktop.sh"
+source "$SCRIPT_DIR/../lib/runtime.sh"
 
 main() {
 
 echo
 info "Starting Butler..."
 log "Butler startup initiated."
+
+init_runtime
 
 check_storage
 
