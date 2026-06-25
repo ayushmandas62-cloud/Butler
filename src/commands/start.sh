@@ -61,14 +61,7 @@ else
 fi
 
 echo
-
-info "Checking X11 server..."
-
-if pgrep -f termux.x11 >/dev/null; then
-    success "Termux:X11 is running"
-else
-    die "Termux:X11 is not running. Open the Termux:X11 app first."
-fi
+start_x11
 
 echo
 
@@ -80,13 +73,12 @@ success "DISPLAY set to $DISPLAY"
 
 echo
 
-info "Launching test application..."
+info "Launching XFCE Desktop..."
 
-if command -v xfce4-terminal >/dev/null 2>&1; then
-    xfce4-terminal &
-    success "xfce4-terminal launched"
+if command -v startxfce4 >/dev/null 2>&1; then
+    launch_desktop
 else
-    die "xfce4-terminal is not installed"
+    die "startxfce4 is not installed"
 fi
 
 echo
