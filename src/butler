@@ -7,7 +7,7 @@ case "$1" in
         info "Install module coming soon."
         ;;
     doctor)
-        info "Doctor module coming soon."
+        exec "$(dirname "$0")/doctor.sh"
         ;;
     start)
         info "Starting Butler..."
