@@ -1,22 +1,24 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-source "$(dirname "$0")/common.sh"
+BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+source "$BASE_DIR/lib/common.sh"
 
 case "$1" in
     install)
-        info "Install module coming soon."
+        exec "$BASE_DIR/commands/install.sh"
         ;;
     doctor)
-        exec "$(dirname "$0")/doctor.sh"
+        exec "$BASE_DIR/commands/doctor.sh"
         ;;
     start)
-        info "Starting Butler..."
+        exec "$BASE_DIR/commands/start.sh"
         ;;
     stop)
-        info "Stopping Butler..."
+        exec "$BASE_DIR/commands/stop.sh"
         ;;
     restart)
-        info "Restarting Butler..."
+        exec "$BASE_DIR/commands/restart.sh"
         ;;
     ""|help|--help|-h)
         echo "Butler Desktop $BUTLER_VERSION"

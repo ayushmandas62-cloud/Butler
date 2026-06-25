@@ -1,6 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-source "$(dirname "$0")/common.sh"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+source "$SCRIPT_DIR/../lib/common.sh"
 
 pass() {
     success "$1"
