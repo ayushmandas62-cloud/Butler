@@ -1,100 +1,23 @@
 /data/data/com.termux/files/usr/bin/startxfce4: X server already running on display :0
 
-(xfce4-session:19683): libxfce4util-WARNING **: 18:52:23.571: Failed to get a ConsoleKit proxy: Could not connect: No such file or directory
-Another Window Manager (Xfwm4) is already running on screen :0.0
-To replace the current window manager, try "--replace"
-
-(xfwm4:19721): xfwm4-WARNING **: 18:52:23.836: Could not find a screen to manage, exiting
-xfsettingsd-Message: 18:52:23.879: Skipping screen 0, it already has an xsettings manager...
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.907: Failed to grab keycode 107
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.907: Failed to grab keycode 218
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.907: Failed to grab keycode 235
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.908: Failed to grab keycode 27
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.908: Failed to grab keycode 39
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.908: Failed to grab keycode 9
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.908: Failed to grab keycode 107
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.909: Failed to grab keycode 218
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.909: Failed to grab keycode 28
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.909: Failed to grab keycode 41
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.909: Failed to grab keycode 158
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.909: Failed to grab keycode 68
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.910: Failed to grab keycode 68
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.910: Failed to grab keycode 68
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.911: Failed to grab keycode 68
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.911: Failed to grab keycode 69
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.912: Failed to grab keycode 69
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.912: Failed to grab keycode 69
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.912: Failed to grab keycode 69
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.912: Failed to grab keycode 119
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.913: Failed to grab keycode 46
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.913: Failed to grab keycode 107
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.913: Failed to grab keycode 218
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.914: Failed to grab keycode 180
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.914: Failed to grab keycode 26
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.914: Failed to grab keycode 33
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.915: Failed to grab keycode 67
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.915: Failed to grab keycode 67
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.915: Failed to grab keycode 67
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.915: Failed to grab keycode 67
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.915: Failed to grab keycode 9
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.915: Failed to grab keycode 163
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.916: Failed to grab keycode 223
-
-(xfsettingsd:19727): libxfce4kbd-private-WARNING **: 18:52:23.916: Failed to grab keycode 9
-
-(xfsettingsd:19727): xfsettingsd-WARNING **: 18:52:24.017: Another clipboard manager is already running.
-
-** (xfdesktop:20307): ERROR **: 18:52:48.311: Another desktop manager is already running on screen 0
+(xfce4-session:28277): libxfce4util-WARNING **: 18:56:49.591: Failed to get a ConsoleKit proxy: Could not connect: No such file or directory
+** Message: 18:56:49.603: Failed to fetch _NET_NUMBER_OF_DESKTOPS; assuming 1
+** Message: 18:56:49.603: Failed to get _NET_WORKAREA; using full screen dimensions
+** Message: 18:56:49.603: Failed to fetch _NET_CURRENT_DESKTOP; assuming 0
+** Message: 18:56:49.604: Failed to fetch _NET_CURRENT_DESKTOP; assuming 0
+** Message: 18:56:49.944: Failed to fetch _NET_CURRENT_DESKTOP; assuming 0
 Xlib:  extension "DPMS" missing on display ":0.0".
 
-(xfce4-power-manager:20366): xfce4-power-manager-WARNING **: 18:52:48.588: Display is not DPMS capable
+(xfce4-power-manager:28377): xfce4-power-manager-WARNING **: 18:56:50.603: Display is not DPMS capable
 
-(xfce4-power-manager:20366): GLib-GIO-CRITICAL **: 18:52:48.589: g_dbus_connection_signal_subscribe: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
-Another notification daemon is running, exiting
+(xfce4-power-manager:28377): GLib-GIO-CRITICAL **: 18:56:50.603: g_dbus_connection_signal_subscribe: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
 
-(xfce4-power-manager:20366): libupower-glib-WARNING **: 18:53:14.118: Couldn't connect to proxy: Error calling StartServiceByName for org.freedesktop.UPower: Timeout was reached
+** (xfdesktop:28369): WARNING **: 18:56:52.121: Failed to get system bus: Could not connect: No such file or directory
 
-(xfce4-power-manager:20366): libxfce4util-WARNING **: 18:53:14.129: Failed to get a ConsoleKit proxy: Could not connect: No such file or directory
+(xfce4-power-manager:28377): libupower-glib-WARNING **: 18:57:15.785: Couldn't connect to proxy: Error calling StartServiceByName for org.freedesktop.UPower: Timeout was reached
 
-** (xfce4-power-manager:20366): WARNING **: 18:53:14.134: Unable to get the interface, net.hadess.PowerProfiles : Could not connect: No such file or directory
+(xfce4-power-manager:28377): libxfce4util-WARNING **: 18:57:15.797: Failed to get a ConsoleKit proxy: Could not connect: No such file or directory
 
-(xfce4-power-manager:20366): xfce4-power-manager-WARNING **: 18:53:28.809: Unable to get the interface, org.freedesktop.UPower.KbdBacklight
+** (xfce4-power-manager:28377): WARNING **: 18:57:15.798: Unable to get the interface, net.hadess.PowerProfiles : Could not connect: No such file or directory
 
-(xfce4-power-manager:20366): xfce4-power-manager-WARNING **: 18:53:28.811: Unable to connect to session manager : Failed to connect to the session manager: Could not open network socket
-
-** (xfce4-power-manager:20366): WARNING **: 18:53:28.811: Error: The connection is closed
-
-(xfce4-power-manager:20366): xfce4-power-manager-WARNING **: 18:53:28.811: Unable to reserve bus name: Maybe any already running instance?
+(xfce4-power-manager:28377): xfce4-power-manager-WARNING **: 18:57:40.815: Unable to get the interface, org.freedesktop.UPower.KbdBacklight

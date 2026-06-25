@@ -4,26 +4,11 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SCRIPT_DIR/../lib/common.sh"
 source "$SCRIPT_DIR/../lib/logger.sh"
 source "$SCRIPT_DIR/../lib/storage.sh"
+source "$SCRIPT_DIR/../lib/dbus.sh"
+source "$SCRIPT_DIR/../lib/x11.sh"
+source "$SCRIPT_DIR/../lib/desktop.sh"
 
-launch_desktop() {
-    info "Launching XFCE Desktop..."
-
-    dbus-launch --exit-with-session startxfce4 \
-        >"$HOME/butler-desktop/logs/xfce.log" 2>&1 &
-
-    sleep 3
-
-    success "XFCE launched in background."
-}
-
-start_x11() {
-    info "Starting X11 bridge..."
-
-    termux-x11 :0 >/dev/null 2>&1 &
-    sleep 2
-
-    success "X11 bridge started"
-}
+main() {
 
 echo
 info "Starting Butler..."
@@ -42,35 +27,20 @@ fi
 
 echo
 success "Environment check completed."
-echo
-info "Starting D-Bus..."
 
-if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
-    eval "$(dbus-launch --sh-syntax)"
-    success "D-Bus started"
-else
-    success "D-Bus already running"
-fi
+start_dbus
 
 echo
 start_x11
 
 echo
-
-info "Configuring display..."
-
-export DISPLAY=:0
-
-success "DISPLAY set to $DISPLAY"
+configure_display
 
 echo
-
-if command -v startxfce4 >/dev/null 2>&1; then
-    launch_desktop
-else
-    die "startxfce4 is not installed"
-fi
+launch_desktop
 
 echo
-
 success "Butler startup completed."
+}
+
+main
