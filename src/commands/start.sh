@@ -7,16 +7,14 @@ source "$SCRIPT_DIR/../lib/logger.sh"
 launch_desktop() {
     info "Launching XFCE Desktop..."
 
-    dbus-launch --exit-with-session startxfce4
+    dbus-launch --exit-with-session startxfce4 \
+        >"$HOME/butler-desktop/logs/xfce.log" 2>&1 &
 
-    status=$?
+    sleep 3
 
-    if [ "$status" -eq 0 ]; then
-        success "XFCE session ended normally."
-    else
-        error "XFCE exited with code $status"
-    fi
+    success "XFCE launched in background."
 }
+
 start_x11() {
     info "Starting X11 bridge..."
 
@@ -72,8 +70,6 @@ export DISPLAY=:0
 success "DISPLAY set to $DISPLAY"
 
 echo
-
-info "Launching XFCE Desktop..."
 
 if command -v startxfce4 >/dev/null 2>&1; then
     launch_desktop
