@@ -2,12 +2,16 @@
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
+source "$SCRIPT_DIR/../lib/common.sh"
+
 REPO_DIR="$HOME/butler-desktop/repository"
+INDEX="$REPO_DIR/index"
+
+if [ ! -f "$INDEX" ]; then
+    die "Repository index not found."
+fi
 
 echo "Available Plugins"
 echo "-----------------"
 
-for plugin in "$REPO_DIR"/*.sh; do
-    [ -e "$plugin" ] || continue
-    basename "$plugin" .sh
-done
+cat "$INDEX"
