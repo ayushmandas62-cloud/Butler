@@ -13,11 +13,22 @@ if [ $# -ne 1 ]; then
 fi
 
 PLUGIN="$1"
+INSTALLED_DB="$HOME/.butler/installed.json"
 
 if [ ! -f "$PLUGIN_DIR/${PLUGIN}.sh" ]; then
     die "Plugin '$PLUGIN' is not installed."
 fi
 
 rm "$PLUGIN_DIR/${PLUGIN}.sh"
+rm -f "$PLUGIN_DIR/${PLUGIN}.meta"
+rm -f "$PLUGIN_DIR/${PLUGIN}.disabled"
+
+tmp=$(mktemp)
+
+jq --arg name "$PLUGIN" '
+map(select(.name != $name))
+' "$INSTALLED_DB" > "$tmp"
+
+mv "$tmp" "$INSTALLED_DB"
 
 success "Plugin '$PLUGIN' removed."
