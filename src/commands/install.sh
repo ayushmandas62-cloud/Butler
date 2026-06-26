@@ -7,14 +7,33 @@ source "$SCRIPT_DIR/../lib/logger.sh"
 
 PROJECT_ROOT="$(realpath "$SCRIPT_DIR/../..")"
 
-mkdir -p "$PREFIX/bin"
+# Global installation
+if [ $# -eq 0 ]; then
+    mkdir -p "$PREFIX/bin"
 
-ln -sf "$PROJECT_ROOT/src/butler" "$PREFIX/bin/butler"
+    ln -sf "$PROJECT_ROOT/src/butler" "$PREFIX/bin/butler"
+    chmod +x "$PROJECT_ROOT/src/butler"
 
-chmod +x "$PROJECT_ROOT/src/butler"
+    success "Butler installed successfully."
+    echo
+    echo "You can now run:"
+    echo "    butler status"
+    exit 0
+fi
 
-echo
-success "Butler installed successfully."
-echo "You can now run:"
-echo
-echo "    butler status"
+# Plugin installation
+PLUGIN="$1"
+
+REPO_DIR="$PROJECT_ROOT/repository"
+PLUGIN_DIR="$PROJECT_ROOT/plugins"
+
+if [ ! -f "$REPO_DIR/${PLUGIN}.sh" ]; then
+    die "Plugin '$PLUGIN' not found."
+fi
+
+mkdir -p "$PLUGIN_DIR"
+
+cp "$REPO_DIR/${PLUGIN}.sh" "$PLUGIN_DIR/"
+chmod +x "$PLUGIN_DIR/${PLUGIN}.sh"
+
+success "Plugin '$PLUGIN' installed."
