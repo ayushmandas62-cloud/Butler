@@ -24,8 +24,28 @@ fi
 # Plugin installation
 PLUGIN="$1"
 
-REPO_DIR="$PROJECT_ROOT/repository"
-INDEX="$REPO_DIR/index.json"
+CACHE_DIR="$HOME/.butler/repos"
+
+REPO_DIR=""
+
+for repo in "$CACHE_DIR"/*; do
+    [ -d "$repo" ] || continue
+
+    if [ -f "$repo/index.json" ] &&
+       jq -e --arg plugin "$PLUGIN" \
+       '.[] | select(.name == $plugin)' \
+       "$repo/index.json" >/dev/null; then
+
+        REPO_DIR="$repo"
+        INDEX="$repo/index.json"
+        break
+    fi
+done
+
+if [ -z "$REPO_DIR" ]; then
+    die "Plugin '$PLUGIN' not found in any repository."
+fi
+
 PLUGIN_DIR="$PROJECT_ROOT/plugins"
 
 if [ ! -f "$INDEX" ]; then
