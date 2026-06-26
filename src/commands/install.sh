@@ -58,13 +58,18 @@ if ! jq -e --arg plugin "$PLUGIN" \
     die "Plugin '$PLUGIN' is not available in the repository."
 fi
 
-DEPENDENCIES=$(jq -r \
-'.[] | select(.name=="'"$PLUGIN"'") | .depends[]?' \
+DEPENDENCIES=$(jq -r --arg plugin "$PLUGIN" \
+'.[] | select(.name == $plugin) | .depends[]?' \
 "$INDEX")
 
 for dep in $DEPENDENCIES; do
     if [ ! -f "$PLUGIN_DIR/$dep.sh" ]; then
-        die "Missing dependency: $dep"
+        info "Installing dependency: $dep"
+        "$SCRIPT_DIR/install.sh" "$dep"
+
+        if [ $? -ne 0 ]; then
+            die "Failed to install dependency: $dep"
+        fi
     fi
 done
 
