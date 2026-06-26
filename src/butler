@@ -1,6 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_PATH="$(realpath "$0")"
+BASE_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
 
 source "$BASE_DIR/lib/common.sh"
 

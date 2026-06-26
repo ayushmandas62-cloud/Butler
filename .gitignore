@@ -1,6 +1,7 @@
 # Runtime files
 runtime/
 logs/
+backups/
 
 # Nano backup files
 *.save
