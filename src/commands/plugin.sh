@@ -45,6 +45,10 @@ case "$1" in
         shift
         "$SCRIPT_DIR/plugin-create.sh" "$@"
         ;;
+    publish)
+        shift
+        "$SCRIPT_DIR/plugin-publish.sh" "$@"
+        ;;
     *)
 
         echo "Usage:"
@@ -58,5 +62,6 @@ case "$1" in
 	echo "  butler plugin enable <plugin>"
 	echo "  butler plugin disable <plugin>"
 	echo "  butler plugin create <plugin>"
+	echo "  butler plugin publish <plugin>"
         ;;
 esac
