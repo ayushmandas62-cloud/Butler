@@ -27,8 +27,21 @@ if [ -x "$COMMAND_FILE" ]; then
 fi
 
 PLUGIN_FILE="$BASE_DIR/../plugins/${COMMAND}.sh"
+INSTALLED_DB="$HOME/.butler/installed.json"
 
 if [ -x "$PLUGIN_FILE" ]; then
+
+    if [ -f "$INSTALLED_DB" ]; then
+        ENABLED=$(jq -r --arg name "$COMMAND" \
+        '.[] | select(.name == $name) | .enabled' \
+        "$INSTALLED_DB")
+
+        if [ "$ENABLED" != "true" ]; then
+            error "Plugin '$COMMAND' is disabled."
+            exit 1
+        fi
+    fi
+
     exec "$PLUGIN_FILE" "${@:2}"
 fi
 
