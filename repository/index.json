@@ -1,0 +1,20 @@
+[
+  {
+    "name": "hello",
+    "version": "1.0.0",
+    "author": "Ayushman",
+    "description": "Example Butler plugin"
+  },
+  {
+    "name": "test",
+    "version": "1.0.0",
+    "author": "Ayushman",
+    "description": "Test plugin"
+  },
+  {
+    "name": "firefox",
+    "version": "1.0.0",
+    "author": "Mozilla",
+    "description": "Firefox launcher"
+  }
+]

@@ -25,14 +25,16 @@ fi
 PLUGIN="$1"
 
 REPO_DIR="$PROJECT_ROOT/repository"
-INDEX="$REPO_DIR/index"
+INDEX="$REPO_DIR/index.json"
 PLUGIN_DIR="$PROJECT_ROOT/plugins"
 
 if [ ! -f "$INDEX" ]; then
     die "Repository index not found."
 fi
 
-if ! grep -Fxq "$PLUGIN" "$INDEX"; then
+if ! jq -e --arg plugin "$PLUGIN" \
+'.[] | select(.name == $plugin)' \
+"$INDEX" >/dev/null; then
     die "Plugin '$PLUGIN' is not available in the repository."
 fi
 
