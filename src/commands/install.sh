@@ -25,7 +25,16 @@ fi
 PLUGIN="$1"
 
 REPO_DIR="$PROJECT_ROOT/repository"
+INDEX="$REPO_DIR/index"
 PLUGIN_DIR="$PROJECT_ROOT/plugins"
+
+if [ ! -f "$INDEX" ]; then
+    die "Repository index not found."
+fi
+
+if ! grep -Fxq "$PLUGIN" "$INDEX"; then
+    die "Plugin '$PLUGIN' is not available in the repository."
+fi
 
 if [ -f "$REPO_DIR/${PLUGIN}.meta" ]; then
     cp "$REPO_DIR/${PLUGIN}.meta" "$PLUGIN_DIR/"
