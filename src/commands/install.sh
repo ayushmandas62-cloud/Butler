@@ -47,6 +47,13 @@ if [ -z "$REPO_DIR" ]; then
 fi
 
 PLUGIN_DIR="$PROJECT_ROOT/plugins"
+INSTALLED_DB="$HOME/.butler/installed.json"
+
+mkdir -p "$(dirname "$INSTALLED_DB")"
+
+if [ ! -f "$INSTALLED_DB" ]; then
+    echo "[]" > "$INSTALLED_DB"
+fi
 
 if [ ! -f "$INDEX" ]; then
     die "Repository index not found."
@@ -85,5 +92,38 @@ chmod +x "$PLUGIN_DIR/${PLUGIN}.sh"
 if [ -f "$REPO_DIR/${PLUGIN}.meta" ]; then
     cp "$REPO_DIR/${PLUGIN}.meta" "$PLUGIN_DIR/"
 fi
+
+NAME=$(jq -r --arg p "$PLUGIN" \
+'.[] | select(.name==$p) | .name' "$INDEX")
+
+VERSION=$(jq -r --arg p "$PLUGIN" \
+'.[] | select(.name==$p) | .version' "$INDEX")
+
+AUTHOR=$(jq -r --arg p "$PLUGIN" \
+'.[] | select(.name==$p) | .author' "$INDEX")
+
+DESCRIPTION=$(jq -r --arg p "$PLUGIN" \
+'.[] | select(.name==$p) | .description' "$INDEX")
+
+tmp=$(mktemp)
+
+jq \
+--arg name "$NAME" \
+--arg version "$VERSION" \
+--arg author "$AUTHOR" \
+--arg description "$DESCRIPTION" \
+'
+map(select(.name != $name))
++
+[{
+    name:$name,
+    version:$version,
+    author:$author,
+    description:$description,
+    enabled:true
+}]
+' "$INSTALLED_DB" > "$tmp"
+
+mv "$tmp" "$INSTALLED_DB"
 
 success "Plugin '$PLUGIN' installed."
