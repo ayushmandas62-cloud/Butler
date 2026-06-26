@@ -27,6 +27,10 @@ PLUGIN="$1"
 REPO_DIR="$PROJECT_ROOT/repository"
 PLUGIN_DIR="$PROJECT_ROOT/plugins"
 
+if [ -f "$REPO_DIR/${PLUGIN}.meta" ]; then
+    cp "$REPO_DIR/${PLUGIN}.meta" "$PLUGIN_DIR/"
+fi
+
 if [ ! -f "$REPO_DIR/${PLUGIN}.sh" ]; then
     die "Plugin '$PLUGIN' not found."
 fi
