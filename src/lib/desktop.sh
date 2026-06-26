@@ -12,10 +12,26 @@ launch_desktop() {
 
     info "Launching XFCE Desktop..."
 
-    dbus-launch --exit-with-session startxfce4 \
-        >logs/xfce.log 2>&1 &
+    startxfce4 > logs/xfce.log 2>&1 &
 
-    sleep 3
+    for i in {1..10}; do
+        XFCE_PID=$(pgrep -x xfce4-session)
+        [ -n "$XFCE_PID" ] && break
+        sleep 1
+    done
 
-    success "XFCE launched in background."
+    if [ -n "$XFCE_PID" ]; then
+        save_pid xfce "$XFCE_PID"
+    fi
+
+    echo "xfce4-session PID: $(pgrep -x xfce4-session)" >> logs/xfce.log
+    echo "dbus-daemon PID: $(pgrep -x dbus-daemon)" >> logs/xfce.log
+
+    if [ -n "$XFCE_PID" ]; then
+        success "XFCE launched successfully."
+    else
+        error "XFCE failed to start."
+        return 1
+    fi
 }
+

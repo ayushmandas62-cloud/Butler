@@ -10,7 +10,15 @@ main() {
 
     "$SCRIPT_DIR/stop.sh"
 
-    sleep 2
+    for i in {1..5}; do
+        if ! pgrep -x xfwm4 >/dev/null &&
+           ! pgrep -f termux-x11 >/dev/null &&
+           ! pgrep -f dbus-daemon >/dev/null; then
+            break
+        fi
+
+        sleep 1
+    done
 
     "$SCRIPT_DIR/start.sh"
 

@@ -59,6 +59,9 @@ launch_desktop
 echo
 success "Butler startup completed."
 
-}
+echo ""
+info "Desktop running. Press Ctrl+C to stop."
+
+	
 
 main

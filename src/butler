@@ -20,6 +20,9 @@ case "$1" in
     restart)
         exec "$BASE_DIR/commands/restart.sh"
         ;;
+    status)
+        exec "$BASE_DIR/commands/status.sh"
+        ;;
     ""|help|--help|-h)
         echo "Butler Desktop $BUTLER_VERSION"
         echo ""
@@ -32,6 +35,7 @@ case "$1" in
         echo "  start"
         echo "  stop"
         echo "  restart"
+        echo "  status"
         ;;
     *)
         error "Unknown command: $1"

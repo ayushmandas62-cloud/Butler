@@ -50,4 +50,25 @@ else
 fi
 
 echo
+echo "Running services"
+
+if pgrep -x xfwm4 >/dev/null; then
+    pass "Desktop running"
+else
+    fail "Desktop not running"
+fi
+
+if pgrep -f dbus-daemon >/dev/null; then
+    pass "D-Bus running"
+else
+    fail "D-Bus not running"
+fi
+
+if pgrep -f termux-x11 >/dev/null; then
+    pass "Termux:X11 running"
+else
+    fail "Termux:X11 not running"
+fi
+
+echo
 echo "========== Done =========="
