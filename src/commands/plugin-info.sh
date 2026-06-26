@@ -13,18 +13,24 @@ if [ $# -ne 1 ]; then
 fi
 
 PLUGIN="$1"
-META="$PLUGIN_DIR/${PLUGIN}.meta"
+DB="$HOME/.butler/installed.json"
 
-if [ ! -f "$META" ]; then
-    die "Plugin '$PLUGIN' not found."
+if ! jq -e --arg name "$PLUGIN" \
+'.[] | select(.name == $name)' \
+"$DB" >/dev/null; then
+    die "Plugin '$PLUGIN' is not installed."
 fi
-
-source "$META"
 
 echo "Plugin Information"
 echo "------------------"
-echo "Name        : $NAME"
-echo "Version     : $VERSION"
-echo "Author      : $AUTHOR"
-echo "Description : $DESCRIPTION"
-echo "Executable  : ${PLUGIN}.sh"
+
+jq -r --arg name "$PLUGIN" '
+.[] | select(.name==$name) |
+[
+    "Name        : " + .name,
+    "Version     : " + .version,
+    "Author      : " + .author,
+    "Description : " + .description,
+    "Enabled     : " + (if .enabled then "Yes" else "No" end)
+] | .[]
+' "$DB"
