@@ -4,41 +4,26 @@ BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 source "$BASE_DIR/lib/common.sh"
 
-case "$1" in
-    install)
-        exec "$BASE_DIR/commands/install.sh"
-        ;;
-    doctor)
-        exec "$BASE_DIR/commands/doctor.sh"
-        ;;
-    start)
-        exec "$BASE_DIR/commands/start.sh"
-        ;;
-    stop)
-        exec "$BASE_DIR/commands/stop.sh"
-        ;;
-    restart)
-        exec "$BASE_DIR/commands/restart.sh"
-        ;;
-    status)
-        exec "$BASE_DIR/commands/status.sh"
-        ;;
-    ""|help|--help|-h)
-        echo "Butler Desktop $BUTLER_VERSION"
-        echo ""
-        echo "Usage:"
-        echo "  butler <command>"
-        echo ""
-        echo "Commands:"
-        echo "  install"
-        echo "  doctor"
-        echo "  start"
-        echo "  stop"
-        echo "  restart"
-        echo "  status"
-        ;;
-    *)
-        error "Unknown command: $1"
-        exit 1
-        ;;
-esac
+COMMAND="$1"
+
+if [ -z "$COMMAND" ] || [ "$COMMAND" = "help" ] || [ "$COMMAND" = "--help" ] || [ "$COMMAND" = "-h" ]; then
+    echo "Butler Desktop $BUTLER_VERSION"
+    echo
+    echo "Usage:"
+    echo "  butler <command>"
+    echo
+    echo "Commands:"
+    for cmd in "$BASE_DIR"/commands/*.sh; do
+        basename "$cmd" .sh
+    done | sort
+    exit 0
+fi
+
+COMMAND_FILE="$BASE_DIR/commands/${COMMAND}.sh"
+
+if [ -x "$COMMAND_FILE" ]; then
+    exec "$COMMAND_FILE"
+else
+    error "Unknown command: $COMMAND"
+    exit 1
+fi

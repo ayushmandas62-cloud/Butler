@@ -2,12 +2,6 @@
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-CONFIG_FILE="$SCRIPT_DIR/../../configs/butler.conf"
-
-if [ -f "$CONFIG_FILE" ]; then
-    source "$CONFIG_FILE"
-fi
-
 source "$SCRIPT_DIR/../lib/common.sh"
 source "$SCRIPT_DIR/../lib/logger.sh"
 source "$SCRIPT_DIR/../lib/storage.sh"
@@ -15,6 +9,9 @@ source "$SCRIPT_DIR/../lib/dbus.sh"
 source "$SCRIPT_DIR/../lib/x11.sh"
 source "$SCRIPT_DIR/../lib/desktop.sh"
 source "$SCRIPT_DIR/../lib/runtime.sh"
+source "$SCRIPT_DIR/../lib/config.sh"
+
+load_config
 
 termux-wake-lock 2>/dev/null || true
 
