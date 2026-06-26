@@ -38,9 +38,15 @@ if ! jq -e --arg plugin "$PLUGIN" \
     die "Plugin '$PLUGIN' is not available in the repository."
 fi
 
-if [ -f "$REPO_DIR/${PLUGIN}.meta" ]; then
-    cp "$REPO_DIR/${PLUGIN}.meta" "$PLUGIN_DIR/"
-fi
+DEPENDENCIES=$(jq -r \
+'.[] | select(.name=="'"$PLUGIN"'") | .depends[]?' \
+"$INDEX")
+
+for dep in $DEPENDENCIES; do
+    if [ ! -f "$PLUGIN_DIR/$dep.sh" ]; then
+        die "Missing dependency: $dep"
+    fi
+done
 
 if [ ! -f "$REPO_DIR/${PLUGIN}.sh" ]; then
     die "Plugin '$PLUGIN' not found."
@@ -50,5 +56,9 @@ mkdir -p "$PLUGIN_DIR"
 
 cp "$REPO_DIR/${PLUGIN}.sh" "$PLUGIN_DIR/"
 chmod +x "$PLUGIN_DIR/${PLUGIN}.sh"
+
+if [ -f "$REPO_DIR/${PLUGIN}.meta" ]; then
+    cp "$REPO_DIR/${PLUGIN}.meta" "$PLUGIN_DIR/"
+fi
 
 success "Plugin '$PLUGIN' installed."
