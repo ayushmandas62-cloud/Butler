@@ -2,6 +2,9 @@
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SCRIPT_DIR/../lib/common.sh"
+source "$SCRIPT_DIR/../lib/logger.sh"
+source "$SCRIPT_DIR/../lib/runtime.sh"
+source "$SCRIPT_DIR/../lib/storage.sh"
 
 pass() {
     success "$1"
@@ -19,7 +22,10 @@ check_command() {
     fi
 }
 
-echo "========== Butler Doctor =========="
+init_runtime
+
+echo "Butler Doctor"
+echo "=============="
 echo
 
 check_command git
@@ -31,40 +37,34 @@ check_command startxfce4
 
 echo
 
-if [ -d "$HOME/storage/shared" ]; then
+if check_storage >/dev/null 2>&1; then
     pass "Storage permission"
 else
     fail "Storage permission"
 fi
 
-if [ -n "$DISPLAY" ]; then
-    pass "DISPLAY = $DISPLAY"
+if service_running xfce; then
+    pass "DISPLAY = ${DISPLAY:-:0}"
 else
-    warn "DISPLAY not set (normal if desktop isn't running)"
-fi
-
-if pgrep -f termux.x11 >/dev/null; then
-    pass "Termux:X11 running"
-else
-    fail "Termux:X11 not running"
+    info "DISPLAY not active (desktop not running)"
 fi
 
 echo
 echo "Running services"
 
-if pgrep -x xfwm4 >/dev/null; then
+if service_running xfce; then
     pass "Desktop running"
 else
     fail "Desktop not running"
 fi
 
-if pgrep -f dbus-daemon >/dev/null; then
+if service_running dbus; then
     pass "D-Bus running"
 else
     fail "D-Bus not running"
 fi
 
-if pgrep -f termux-x11 >/dev/null; then
+if service_running x11; then
     pass "Termux:X11 running"
 else
     fail "Termux:X11 not running"

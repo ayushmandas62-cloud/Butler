@@ -6,7 +6,7 @@ desktop_running() {
 
 launch_desktop() {
     if desktop_running; then
-        warn "XFCE Desktop is already running."
+        info "XFCE Desktop is already running."
         return 0
     fi
 

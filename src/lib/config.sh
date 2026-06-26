@@ -11,4 +11,21 @@ load_config() {
     fi
 
     source "$CONFIG_FILE"
+
+    required=(
+        DISPLAY
+        DESKTOP
+        ENABLE_DBUS
+        ENABLE_X11
+        RUNTIME_DIR
+        LOG_DIR
+        MONITOR_INTERVAL
+    )
+
+    for var in "${required[@]}"; do
+        if [ -z "${!var}" ]; then
+            echo "Missing configuration: $var"
+            return 1
+        fi
+    done
 }
