@@ -1,6 +1,30 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(realpath "$SCRIPT_DIR/../..")"
+
+DB="$PROJECT_ROOT/src/packages/packages.db"
+
+if [ -z "$1" ]; then
+    echo "Usage: butler install <package>"
+    exit 1
+fi
+
+PACKAGE=$(grep "^$1=" "$DB" | cut -d= -f2)
+
+if [ -z "$PACKAGE" ]; then
+    echo "Unknown package: $1"
+    exit 1
+fi
+
+pkg install "$PACKAGE"
+
+if [ $? -eq 0 ]; then
+    echo
+    echo "[ OK ] Package '$PACKAGE' installed."
+fi
+
+exit 0
 
 source "$SCRIPT_DIR/../lib/common.sh"
 source "$SCRIPT_DIR/../lib/logger.sh"
