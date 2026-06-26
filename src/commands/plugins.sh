@@ -13,15 +13,32 @@ fi
 
 found=false
 
-for plugin in "$PLUGIN_DIR"/*.sh; do
+for plugin in "$PLUGIN_DIR"/*.sh "$PLUGIN_DIR"/*.disabled; do
     [ -e "$plugin" ] || continue
 
-    name=$(basename "$plugin" .sh)
+    filename=$(basename "$plugin")
+
+case "$filename" in
+    *.sh)
+        name="${filename%.sh}"
+        status="Enabled"
+        ;;
+    *.disabled)
+        name="${filename%.disabled}"
+        status="Disabled"
+        ;;
+esac
+
     meta="$PLUGIN_DIR/${name}.meta"
 
     if [ -f "$meta" ]; then
         source "$meta"
-        printf "%-12s v%-8s %s\n" "$name" "$VERSION" "$DESCRIPTION"
+        printf "%-12s v%-8s %-9s %s\n" \
+        "$name" \
+        "$VERSION" \
+        "$status" \
+        "$DESCRIPTION"
+
     else
         printf "%-12s\n" "$name"
     fi
