@@ -22,7 +22,7 @@ fi
 COMMAND_FILE="$BASE_DIR/commands/${COMMAND}.sh"
 
 if [ -x "$COMMAND_FILE" ]; then
-    exec "$COMMAND_FILE"
+    exec "$COMMAND_FILE" "${@:2}"
 else
     error "Unknown command: $COMMAND"
     exit 1
