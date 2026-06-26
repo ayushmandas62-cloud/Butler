@@ -1,0 +1,5 @@
+NAME="weather"
+VERSION="1.0.0"
+AUTHOR="Unknown"
+DESCRIPTION="weather plugin"
+ENABLED="true"

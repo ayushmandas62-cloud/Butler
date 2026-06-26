@@ -20,13 +20,43 @@ case "$1" in
     update)
         "$SCRIPT_DIR/plugin-update.sh"
         ;;
+    search)
+        shift
+        "$SCRIPT_DIR/plugin-search.sh" "$@"
+        ;;
+    repo)
+        "$SCRIPT_DIR/plugin-repo.sh"
+        ;;
+    info)
+        shift
+        "$SCRIPT_DIR/plugin-info.sh" "$@"
+        ;;
 
+    enable)
+        shift
+        "$SCRIPT_DIR/plugin-enable.sh" "$@"
+        ;;
+
+    disable)
+        shift
+        "$SCRIPT_DIR/plugin-disable.sh" "$@"
+        ;;
+    create)
+        shift
+        "$SCRIPT_DIR/plugin-create.sh" "$@"
+        ;;
     *)
+
         echo "Usage:"
         echo "  butler plugin list"
+        echo "  butler plugin search"
         echo "  butler plugin install <plugin>"
         echo "  butler plugin remove <plugin>"
         echo "  butler plugin update"
-        exit 1
+        echo "  butler plugin repo"
+        echo "  butler plugin info <plugin>"
+	echo "  butler plugin enable <plugin>"
+	echo "  butler plugin disable <plugin>"
+	echo "  butler plugin create <plugin>"
         ;;
 esac
