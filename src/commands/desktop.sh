@@ -7,6 +7,16 @@ PROFILE_DIR="$PROJECT_ROOT/src/profiles"
 CONFIG_FILE="$PROJECT_ROOT/src/config/desktop.conf"
 
 case "$1" in
+    current)
+        echo "Current Desktop Profile"
+        echo "-----------------------"
+
+        source "$CONFIG_FILE"
+
+        echo "$WM"
+
+        exit 0
+        ;;
     list)
         echo "Installed Desktop Profiles"
         echo "--------------------------"
@@ -30,7 +40,12 @@ case "$1" in
 
         cp "$PROFILE_DIR/$2.conf" "$CONFIG_FILE"
 
-        echo "Desktop profile '$2' activated."
+        echo
+	echo "[ OK ] Desktop profile '$2' activated."
+	echo
+	echo "Restart Butler Desktop to apply changes:"
+	echo
+	echo "    butler restart"
         ;;
 
     *)
