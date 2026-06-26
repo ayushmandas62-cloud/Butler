@@ -24,7 +24,13 @@ COMMAND_FILE="$BASE_DIR/commands/${COMMAND}.sh"
 
 if [ -x "$COMMAND_FILE" ]; then
     exec "$COMMAND_FILE" "${@:2}"
-else
-    error "Unknown command: $COMMAND"
-    exit 1
 fi
+
+PLUGIN_FILE="$BASE_DIR/../plugins/${COMMAND}.sh"
+
+if [ -x "$PLUGIN_FILE" ]; then
+    exec "$PLUGIN_FILE" "${@:2}"
+fi
+
+error "Unknown command: $COMMAND"
+exit 1
