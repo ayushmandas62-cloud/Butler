@@ -1,40 +1,45 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(realpath "$SCRIPT_DIR/../..")"
 
 source "$SCRIPT_DIR/../lib/common.sh"
-source "$SCRIPT_DIR/../lib/logger.sh"
-source "$SCRIPT_DIR/../lib/runtime.sh"
-source "$SCRIPT_DIR/../lib/process.sh"
+source "$PROJECT_ROOT/src/config/desktop.conf"
+DESKTOP_STATUS="Stopped"
 
-main() {
-    info "Butler Status"
+if pgrep -x openbox >/dev/null && pgrep -x polybar >/dev/null; then
+    DESKTOP_STATUS="Running"
+fi
 
-    echo
+echo "========== Butler Desktop =========="
+echo
 
-    if service_running xfce; then
-        success "Desktop : Running"
-        echo "Session PID : $(get_pid xfce)"
-        echo "Current PID : $(process_pid xfce4-session)"
-    else
-       berror "Desktop : Stopped"
-    fi
+printf "%-15s : %s\n" "Desktop" "$DESKTOP_STATUS"
+printf "%-15s : %s\n" "WM" "$WM"
+printf "%-15s : %s\n" "BAR" "$BAR"
+printf "%-15s : %s\n" "LAUNCHER" "$LAUNCHER"
+printf "%-15s : %s\n" "DISPLAY" "$DISPLAY"
+echo
 
-    if pgrep -f dbus-daemon >/dev/null; then
-        success "D-Bus : Running"
-        echo "D-Bus PID : $(process_pid dbus-daemon)"
-    else
-        error "D-Bus : Stopped"
-    fi
+echo
 
-    if pgrep -f termux-x11 >/dev/null; then
-        success "Termux:X11 : Running"
-        echo "Termux:X11 PID : $(process_pid termux-x11)"
-    else
-        error "Termux:X11 : Stopped"
-    fi
+if pgrep -f "termux.x11" >/dev/null; then
+    echo "Termux:X11     : Running"
+else
+    echo "Termux:X11     : Stopped"
+fi
 
-}
+if pgrep -x openbox >/dev/null; then
+    echo "Openbox        : Running"
+else
+    echo "Openbox        : Stopped"
+fi
 
-main
+if pgrep -x polybar >/dev/null; then
+    echo "Polybar        : Running"
+else
+    echo "Polybar        : Stopped"
+fi
 
+echo
+echo "===================================="
