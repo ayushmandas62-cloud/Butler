@@ -13,11 +13,25 @@ if [ $# -ne 1 ]; then
 fi
 
 PLUGIN="$1"
+INSTALLED_DB="$HOME/.butler/installed.json"
 
-if [ ! -f "$PLUGIN_DIR/${PLUGIN}.sh" ]; then
+if ! jq -e --arg name "$PLUGIN" \
+'.[] | select(.name == $name)' \
+"$INSTALLED_DB" >/dev/null; then
     die "Plugin '$PLUGIN' not installed."
 fi
 
-mv "$PLUGIN_DIR/${PLUGIN}.sh" "$PLUGIN_DIR/${PLUGIN}.disabled"
+tmp=$(mktemp)
+
+jq --arg name "$PLUGIN" '
+map(
+    if .name == $name
+    then .enabled = false
+    else .
+    end
+)
+' "$INSTALLED_DB" > "$tmp"
+
+mv "$tmp" "$INSTALLED_DB"
 
 success "Plugin '$PLUGIN' disabled."
