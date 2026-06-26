@@ -15,15 +15,17 @@ fi
 echo "Available Plugins"
 echo "-----------------"
 
-jq -r '
-.[] |
-[
-  .name,
-  "v" + .version,
-  .author,
-  .description
-] | @tsv
-' "$INDEX" | while IFS=$'\t' read -r name version author description; do
+find "$CACHE_DIR" -name index.json | while read -r INDEX; do
+    jq -r '
+    .[] |
+    [
+      .name,
+      "v" + .version,
+      .author,
+      .description
+    ] | @tsv
+    ' "$INDEX"
+done | while IFS=$'\t' read -r name version author description; do
     printf "%-12s %-8s %-12s %s\n" \
         "$name" \
         "$version" \
