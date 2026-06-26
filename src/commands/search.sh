@@ -4,11 +4,12 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 source "$SCRIPT_DIR/../lib/common.sh"
 
-REPO_DIR="$HOME/butler-desktop/repository"
-INDEX="$REPO_DIR/index.json"
+CACHE_DIR="$HOME/.butler/repos"
 
-if [ ! -f "$INDEX" ]; then
-    die "Repository index not found."
+INDEX=$(find "$CACHE_DIR" -name index.json | head -n1)
+
+if [ -z "$INDEX" ]; then
+    die "No repository index found."
 fi
 
 echo "Available Plugins"
