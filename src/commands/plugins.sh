@@ -4,49 +4,32 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 source "$SCRIPT_DIR/../lib/common.sh"
 
-PLUGIN_DIR="$HOME/butler-desktop/plugins"
+DB="$HOME/.butler/installed.json"
 
-if [ ! -d "$PLUGIN_DIR" ]; then
+if [ ! -f "$DB" ]; then
     echo "No plugins installed."
     exit 0
 fi
 
-found=false
+count=$(jq 'length' "$DB")
 
-for plugin in "$PLUGIN_DIR"/*.sh "$PLUGIN_DIR"/*.disabled; do
-    [ -e "$plugin" ] || continue
-
-    filename=$(basename "$plugin")
-
-case "$filename" in
-    *.sh)
-        name="${filename%.sh}"
-        status="Enabled"
-        ;;
-    *.disabled)
-        name="${filename%.disabled}"
-        status="Disabled"
-        ;;
-esac
-
-    meta="$PLUGIN_DIR/${name}.meta"
-
-    if [ -f "$meta" ]; then
-        source "$meta"
-        printf "%-12s v%-8s %-9s %s\n" \
-        "$name" \
-        "$VERSION" \
-        "$status" \
-        "$DESCRIPTION"
-
-    else
-        printf "%-12s\n" "$name"
-    fi
-
-    found=true
-done
-
-if [ "$found" = false ]; then
+if [ "$count" -eq 0 ]; then
     echo "No plugins installed."
+    exit 0
 fi
 
+jq -r '
+.[] |
+[
+    .name,
+    .version,
+    (if .enabled then "Enabled" else "Disabled" end),
+    .description
+] | @tsv
+' "$DB" | while IFS=$'\t' read -r name version status description; do
+    printf "%-12s v%-8s %-9s %s\n" \
+        "$name" \
+        "$version" \
+        "$status" \
+        "$description"
+done
