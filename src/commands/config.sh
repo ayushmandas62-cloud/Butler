@@ -1,10 +1,11 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(realpath "$SCRIPT_DIR/../..")"
 
 source "$SCRIPT_DIR/../lib/common.sh"
 
-CONFIG_FILE="$HOME/butler-desktop/configs/butler.conf"
+CONFIG_FILE="$PROJECT_ROOT/src/config/desktop.conf"
 
 if [ ! -f "$CONFIG_FILE" ]; then
     die "Configuration file not found."
@@ -34,16 +35,16 @@ case "$1" in
         ;;
 esac
 
-echo "========== Butler Configuration =========="
+echo "========== Butler Desktop Configuration =========="
 echo
 
-echo "DISPLAY            : $DISPLAY"
-echo "DESKTOP            : $DESKTOP"
-echo "ENABLE_DBUS        : $ENABLE_DBUS"
-echo "ENABLE_X11         : $ENABLE_X11"
-echo "MONITOR_INTERVAL   : $MONITOR_INTERVAL"
-echo "RUNTIME_DIR        : $RUNTIME_DIR"
-echo "LOG_DIR            : $LOG_DIR"
+printf "%-15s : %s\n" "WM" "$WM"
+printf "%-15s : %s\n" "BAR" "$BAR"
+printf "%-15s : %s\n" "LAUNCHER" "$LAUNCHER"
+printf "%-15s : %s\n" "FILE_MANAGER" "$FILE_MANAGER"
+printf "%-15s : %s\n" "COMPOSITOR" "$COMPOSITOR"
+printf "%-15s : %s\n" "WALLPAPER" "$WALLPAPER"
+printf "%-15s : %s\n" "DISPLAY" "$DISPLAY"
 
 echo
-echo "=========================================="
+echo "=============================================="
