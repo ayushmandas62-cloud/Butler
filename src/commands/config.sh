@@ -12,6 +12,28 @@ fi
 
 source "$CONFIG_FILE"
 
+case "$1" in
+    get)
+        if [ -z "$2" ]; then
+            die "Usage: butler config get <KEY>"
+        fi
+
+        eval "echo \${$2}"
+        exit 0
+        ;;
+
+    set)
+        if [ $# -ne 3 ]; then
+            die "Usage: butler config set <KEY> <VALUE>"
+        fi
+
+        sed -i "s|^$2=.*|$2=$3|" "$CONFIG_FILE"
+
+        success "$2 updated to $3"
+        exit 0
+        ;;
+esac
+
 echo "========== Butler Configuration =========="
 echo
 
