@@ -1,0 +1,11 @@
+# Runtime files
+runtime/
+logs/
+
+# Nano backup files
+*.save
+*.save.*
+
+# Temporary files
+*.tmp
+*.bak
